@@ -1,12 +1,12 @@
 const WIDTH = 8;
+const HEIGHT = 7;
 const DURATION = 750;
-const NUMBERS = [".one", ".two", ".three", ".four", ".five", ".six", ".seven", ".eight"];
 const NOTES = [["C", 5], ["G", 4], ["E", 4], ["C", 4], ["G", 3], ["E", 3], ["C", 3]];
 let piano;
 const cells = [];
 let socket;
 
-//removes a class and adds a class to a cell
+//removes a class and adds a class to a cell (or group of cells)
 const swapClasses = function(cell, removeClass, addClass) {
     cell.addClass("addClass");
     cell.removeClass("removeClass");
@@ -83,8 +83,12 @@ const setupSocket = function() {
 //assigns the onclick handler to all of the cells
 const setup = function() {
     //collect cell references
-    for (let i = 0; i < 8; i++) {
-        cells[i] = $(NUMBERS[i])
+    for(const i = 0; i < WIDTH; i++) {
+        cells.push([]);
+    }
+    const cellsList = $(".cell");
+    for (const i = 0; i < WIDTH * HEIGHT; i++) {
+        cells[i].push(cellsList[i]);
     }
 
     //register with server
