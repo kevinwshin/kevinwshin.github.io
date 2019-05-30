@@ -12,6 +12,8 @@ console.log("1");
 
 const startBeat = function(duration){
     io.emit("startBeat");
+
+    console.log("13");
     setTimeout(startBeat, duration);
 };
 
@@ -83,6 +85,8 @@ const setup = function() {
     console.log("12");
 
     startBeat();
+
+    console.log("14");
 };
 
 console.log("3");
