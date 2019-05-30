@@ -76,11 +76,11 @@ const setupSocket = function() {
     socket.on("startBeat", beatBar);
     socket.on("setup", function(grid) {
         for(let i = 0; i < cells.length; i++) {
-            for(let j = 0; j < cells[i].length; j++) {
+            cells[i].each(function(j) {
                 if(grid[i][j]) {
-                    activate(cells[i][j]);
+                    activate($(this));
                 }
-            }
+            });
         }
     });
 };
