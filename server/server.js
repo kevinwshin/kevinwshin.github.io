@@ -9,7 +9,7 @@ const grid = [];
 const startBeat = function(duration, io){
     io.emit("startBeat");
     setTimeout(startBeat, duration);
-}
+};
 
 //starts the server, gets the port from heroku if possible
 // const server = http.createServer(function(request, response) {
