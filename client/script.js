@@ -1,7 +1,6 @@
 const WIDTH = 8;
 const NUMBERS = [".one", ".two", ".three", ".four", ".five", ".six", ".seven", ".eight"];
 const NOTES = [["C", 5], ["G", 4], ["E", 4], ["C", 4], ["G", 3], ["E", 3], ["C", 3]];
-
 let piano;
 let cells = [];
 
@@ -34,23 +33,25 @@ const onclick = function(eventObject) {
 const beatBar = function(duration, beat) {
     swapClasses(cells[beat], "offbeat", "onbeat");
 
+    setTimeout(function() {
+        swapClasses(cells[beat], "onbeat", "offbeat");
+        beatBar(duration, (beat + 1) % WIDTH);
+    }, duration);
+
+    //play sounds
     cells[beat].each(function(index) {
         if($(this).hasClass("active")) {
             piano.play(NOTES[index][0], NOTES[index][1], duration / 1000);
         }
     });
-
-    setTimeout(function() {
-        swapClasses(cells[beat], "onbeat", "offbeat");
-        beatBar(duration, (beat + 1) % WIDTH);
-    }, duration);
-    //play sounds
 };
 
 //assigns the onclick handler to all of the cells
 const setup = function() {
-    $(".cell").click(onclick);
     //register with server
+    
+    $(".cell").click(onclick);
+
     for (var i = 0; i < 8; i++) {
         cells[i] = $(NUMBERS[i])
     }
