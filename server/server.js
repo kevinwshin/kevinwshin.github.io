@@ -11,7 +11,7 @@ const grid = [];
 const startBeat = function(duration){
     io.emit("startBeat");
     setTimeout(startBeat, duration, duration);
-    console.log("beat");
+    console.log("startBeat");
 };
 
 const setup = function() {
@@ -49,14 +49,14 @@ const setup = function() {
         //set true and broadcast on activation
         socket.on("activate", function(cell) {
             grid[cell[0]][cell[1]] = true;
-            socket.broadcast.emit("activate", cell);
+            socket.emit("activate", cell);
             console.log("activate");
         });
 
         //set false and broadcast on deactivation
         socket.on("deactivate", function(cell) {
             grid[cell[0]][cell[1]] = false;
-            socket.broadcast.emit("deactivate", cell);
+            socket.emit("deactivate", cell);
             console.log("deactivate");
         });
         console.log("done")
