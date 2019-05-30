@@ -28,10 +28,11 @@ const setup = function() {
     //setup event handlers
     io = require("socket.io")(server);
     io.on("connection", function(socket) {
+        console.log("users: " + users.length);
 
         //register users and send state on connect
         users.push(socket);
-        //socket.emit("setup", grid);
+        socket.emit("setup", grid);
 
         //deregister users on disconnect
         socket.on("disconnect", function() {
@@ -41,6 +42,7 @@ const setup = function() {
             } else {
                 users = users.splice(index, 1);
             }
+            console.log("users: " + users.length);
         });
 
         //set true and broadcast on activation
