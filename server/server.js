@@ -25,7 +25,9 @@ const setup = function() {
     }
 
     //starts the server, gets the port from heroku if possible
-    server = http.createServer();
+    server = http.createServer(function(request, response) {
+        console.log(request);
+    });
     server.listen(process.env.PORT || 8080);
 
     //setup event handlers
