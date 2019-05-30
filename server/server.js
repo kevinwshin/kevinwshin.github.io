@@ -25,7 +25,7 @@ const setup = function() {
     }
 
     //starts the server, gets the port from heroku if possible
-    server = http.createServer({function(request, response) {
+    server = http.createServer(function(request, response) {
         console.log("request");
         response.send("");
     });
