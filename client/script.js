@@ -8,8 +8,8 @@ let socket;
 
 //removes a class and adds a class to a cell (or group of cells)
 const swapClasses = function(cell, removeClass, addClass) {
-    cell.addClass("addClass");
-    cell.removeClass("removeClass");
+    cell.addClass(addClass);
+    cell.removeClass(removeClass);
 };
 
 //splits the cells' ids into [c,r] tuples
@@ -17,6 +17,7 @@ const splitID = function(cell) {
     return cell.attr('id').split(",");
 };
 
+//gets a cell based on its id
 const fetchCell = function(splitid) {
     return $("#[" + splitid[0] + "," + splitid[1] + "]");
 };
@@ -44,7 +45,7 @@ const onclick = function(eventObject) {
 };
 
 //one sweep of the beat bar, beat duration in ms
-const beatBar = function(duration, beat) {
+const beatBar = function(duration=DURATION, beat=0) {
     swapClasses(cells[beat], "offbeat", "onbeat");
 
     //both turns off the beatbar and moves it to the next beat
@@ -84,7 +85,7 @@ const setupSocket = function() {
 const setup = function() {
     //collect cell references
     for(let i = 0; i < WIDTH; i++) {
-        cells.push($(".grid > :nth-child(8n+" + i + ")"));
+        cells.push($(".grid > :nth-child(8n+" + (i - 1) + ")"));
     }
 
     //register with server
@@ -98,7 +99,7 @@ const setup = function() {
     piano = Synth.createInstrument('piano');
 
     //start beat
-    beatBar(DURATION, 0);
+    //beatBar();
 };
 
 //runs the setup when the DOM is ready
