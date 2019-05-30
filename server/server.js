@@ -84,7 +84,7 @@ const setup = function() {
 
     console.log("12");
 
-    startBeat();
+    startBeat(DURATION);
 
     console.log("14");
 };
