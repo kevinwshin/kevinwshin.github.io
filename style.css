@@ -13,10 +13,18 @@
     grid-gap: 4px;
 }
 
-.inactive {
-    background: #606060;
+.inactive.onbeat {
+    background: #404040;
 }
 
-.active {
-    background: #D0D0D0;
+.inactive.offbeat {
+    background: #505050;
+}
+
+.active.offbeat {
+    background: #C0C0C0;
+}
+
+.active.onbeat {
+    background: #F0F0F0;
 }
