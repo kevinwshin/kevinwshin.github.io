@@ -1,7 +1,7 @@
-const WIDTH = 8;
-const HEIGHT = 7;
-const DURATION = 750;
-const NOTES = [["C", 5], ["G", 4], ["E", 4], ["C", 4], ["G", 3], ["E", 3], ["C", 3]];
+const WIDTH = 12;
+const HEIGHT = 11;
+const DURATION = 60 * 1000 / 80; //80 BPM
+const NOTES = [["C", 5], ["A", 4], ["G", 4], ["E", 4], ["D", 4], ["C", 4], ["A", 4], ["G", 3], ["E", 3], ["D", 3], ["C", 3]];
 let piano;
 const cells = [];
 let socket;
@@ -89,7 +89,7 @@ const setupSocket = function() {
 const setup = function() {
     //collect cell references
     for(let i = 0; i < WIDTH; i++) {
-        cells.push($(".grid > :nth-child(8n+" + (i + 1) + ")"));
+        cells.push($(".grid > :nth-child(" + WIDTH + "n+" + (i + 1) + ")"));
     }
 
     //register with server
