@@ -33,7 +33,7 @@ const setup = function() {
 
         //register users and send state on connect
         users.push(socket);
-        socket.emit("setup", grid);
+        //socket.emit("setup", grid);
 
         //deregister users on disconnect
         socket.on("disconnect", function() {
