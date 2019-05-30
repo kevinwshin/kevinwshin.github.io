@@ -83,11 +83,11 @@ const setupSocket = function() {
 //assigns the onclick handler to all of the cells
 const setup = function() {
     //collect cell references
-    for(const i = 0; i < WIDTH; i++) {
+    for(let i = 0; i < WIDTH; i++) {
         cells.push([]);
     }
     const cellsList = $(".cell");
-    for (const i = 0; i < WIDTH * HEIGHT; i++) {
+    for (let i = 0; i < WIDTH * HEIGHT; i++) {
         cells[i].push(cellsList[i]);
     }
 
