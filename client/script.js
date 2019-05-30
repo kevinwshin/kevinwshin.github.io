@@ -88,7 +88,7 @@ const setup = function() {
     }
     const cellsList = $(".cell");
     for (let i = 0; i < WIDTH * HEIGHT; i++) {
-        cells[i].push(cellsList[i]);
+        cells[i % WIDTH].push(cellsList[i]);
     }
 
     //register with server
