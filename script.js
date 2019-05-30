@@ -1,5 +1,8 @@
 const WIDTH = 8;
 const NUMBERS = [".one", ".two", ".three", ".four", ".five", ".six", ".seven", ".eight"];
+const NOTES = [["C", 5], ["G", 4], ["E", 4], ["C", 4], ["G", 3], ["E", 3], ["C", 3]];
+
+let piano;
 let cells = [];
 
 const swapClasses = function(cell, removeClass, addClass) {
@@ -30,6 +33,13 @@ const onclick = function(eventObject) {
 //shows the beat bar, duration in ms
 const beatBar = function(duration, beat) {
     swapClasses(cells[beat], "offbeat", "onbeat");
+
+    cells[beat].each(function(index) {
+        if($(this).hasClass("active")) {
+            piano.play(NOTES[index][0], NOTES[index][1], duration / 1000);
+        }
+    });
+
     setTimeout(function() {
         swapClasses(cells[beat], "onbeat", "offbeat");
         beatBar(duration, (beat + 1) % WIDTH);
@@ -44,6 +54,10 @@ const setup = function() {
     for (var i = 0; i < 8; i++) {
         cells[i] = $(NUMBERS[i])
     }
+
+    Synth.setVolume(0.20);
+    piano = Synth.createInstrument('piano');
+
     beatBar(750, 0);
 };
 
