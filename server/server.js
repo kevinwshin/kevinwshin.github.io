@@ -11,7 +11,6 @@ const grid = [];
 const startBeat = function(duration){
     io.emit("startBeat");
     setTimeout(startBeat, duration, duration);
-    console.log("startBeat");
 };
 
 const setup = function() {
@@ -29,7 +28,6 @@ const setup = function() {
     //setup event handlers
     io = require("socket.io")(server);
     io.on("connection", function(socket) {
-        console.log("connect");
 
         //register users and send state on connect
         users.push(socket);
@@ -43,23 +41,19 @@ const setup = function() {
             } else {
                 users = users.splice(index, 1);
             }
-            console.log("disconnect");
         });
 
         //set true and broadcast on activation
         socket.on("activate", function(cell) {
             grid[cell[0]][cell[1]] = true;
             socket.broadcast.emit("activate", cell);
-            console.log("activate");
         });
 
         //set false and broadcast on deactivation
         socket.on("deactivate", function(cell) {
             grid[cell[0]][cell[1]] = false;
             socket.broadcast.emit("deactivate", cell);
-            console.log("deactivate");
         });
-        console.log("done")
     });
 
     startBeat(DURATION);
