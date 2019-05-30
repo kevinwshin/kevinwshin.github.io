@@ -13,11 +13,11 @@ const swapClasses = function(cell, removeClass, addClass) {
 };
 
 //splits the cells' ids into [c,r] tuples
-const splitID(cell) {
+const splitID = function(cell) {
     return cell.attr('id').split(",");
 };
 
-const fetchCell(splitid) {
+const fetchCell = function(splitid) {
     return $("#[" + splitid[0] + "," + splitid[1] + "]");
 };
 
