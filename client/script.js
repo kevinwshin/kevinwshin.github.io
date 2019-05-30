@@ -67,12 +67,17 @@ const beatBar = function(duration, beat) {
 const setupSocket = function() {
     socket = io("https://soundgrid2.herokuapp.com/");
     socket.on("activate", function(splitid) {
+        console.log("activate");
         activate(fetchCell(splitid));
     });
     socket.on("deactivate", function(splitid) {
+        console.log("deactivate");
         deactivate(fetchCell(splitid));
     });
-    socket.on("startBeat", beatBar);
+    socket.on("startBeat", () => {
+        console.log("beatBar");
+        beatBar()
+    });
 };
 
 //assigns the onclick handler to all of the cells

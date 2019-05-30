@@ -49,14 +49,14 @@ const setup = function() {
         //set true and broadcast on activation
         socket.on("activate", function(cell) {
             grid[cell[0]][cell[1]] = true;
-            socket.emit("activate", cell);
+            socket.broadcast.emit("activate", cell);
             console.log("activate");
         });
 
         //set false and broadcast on deactivation
         socket.on("deactivate", function(cell) {
             grid[cell[0]][cell[1]] = false;
-            socket.emit("deactivate", cell);
+            socket.broadcast.emit("deactivate", cell);
             console.log("deactivate");
         });
         console.log("done")
