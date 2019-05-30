@@ -73,8 +73,15 @@ const setupSocket = function() {
     socket.on("deactivate", function(splitid) {
         deactivate(fetchCell(splitid));
     });
-    socket.on("startBeat", () => {
-        beatBar()
+    socket.on("startBeat", beatBar);
+    socket.on("setup", function(grid) {
+        for(let i = 0; i < cells.length; i++) {
+            for(let j = 0; j < cells[i].length; j++) {
+                if(grid[i][j]) {
+                    activate(cells[i][j]);
+                }
+            }
+        }
     });
 };
 
