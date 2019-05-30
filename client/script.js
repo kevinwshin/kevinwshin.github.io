@@ -84,11 +84,7 @@ const setupSocket = function() {
 const setup = function() {
     //collect cell references
     for(let i = 0; i < WIDTH; i++) {
-        cells.push([]);
-    }
-    const cellsList = $(".cell");
-    for (let i = 0; i < WIDTH * HEIGHT; i++) {
-        cells[i % WIDTH].push(cellsList[i]);
+        cells.push($(".grid > :nth-child(8n+" + i + ")"));
     }
 
     //register with server
