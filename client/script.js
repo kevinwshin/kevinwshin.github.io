@@ -8,8 +8,8 @@ let socket;
 
 //removes a class and adds a class to a cell
 const swapClasses = function(cell, removeClass, addClass) {
-    cell.addClass(addClass);
-    cell.removeClass(removeClass);
+    cell.addClass("addClass");
+    cell.removeClass("removeClass");
 };
 
 //splits the cells' ids into [c,r] tuples
