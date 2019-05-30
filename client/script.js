@@ -1,13 +1,25 @@
 const WIDTH = 8;
+const DURATION = 750;
 const NUMBERS = [".one", ".two", ".three", ".four", ".five", ".six", ".seven", ".eight"];
 const NOTES = [["C", 5], ["G", 4], ["E", 4], ["C", 4], ["G", 3], ["E", 3], ["C", 3]];
 let piano;
-let cells = [];
+const cells = [];
+let socket;
 
+//removes a class and adds a class to a cell
 const swapClasses = function(cell, removeClass, addClass) {
     cell.addClass(addClass);
     cell.removeClass(removeClass);
-}
+};
+
+//splits the cells' ids into [c,r] tuples
+const splitID(cell) {
+    return cell.attr('id').split(",");
+};
+
+const fetchCell(splitid) {
+    return $("#[" + splitid[0] + "," + splitid[1] + "]");
+};
 
 //toggles a cell on
 const activate = function(cell) {
@@ -23,19 +35,24 @@ const deactivate = function(cell) {
 const onclick = function(eventObject) {
     const cell = $(this);
     if(cell.hasClass("inactive")) {
-        activate(cell); //change to server-interfacing code when appropriate
+        activate(cell);
+        socket.emit("activate", splitID(cell));
     } else if(cell.hasClass("active")) {
-        deactivate(cell); //change to server-interfacing code when appropriate
+        deactivate(cell);
+        socket.emit("deactivate", splitID(cell));
     }
 };
 
-//shows the beat bar, duration in ms
+//one sweep of the beat bar, beat duration in ms
 const beatBar = function(duration, beat) {
     swapClasses(cells[beat], "offbeat", "onbeat");
 
+    //both turns off the beatbar and moves it to the next beat
     setTimeout(function() {
         swapClasses(cells[beat], "onbeat", "offbeat");
-        beatBar(duration, (beat + 1) % WIDTH);
+        if(++beat < WIDTH) {
+            beatBar(duration, beat);
+        }
     }, duration);
 
     //play sounds
@@ -46,20 +63,37 @@ const beatBar = function(duration, beat) {
     });
 };
 
+//register with server
+const setupSocket = function() {
+    socket = io();
+    socket.on("activate", function(splitid) {
+        activate(fetchCell(splitid));
+    });
+    socket.on("deactivate", function(splitid) {
+        deactivate(fetchCell(splitid));
+    });
+    socket.on("startbeat", beatBar);
+};
+
 //assigns the onclick handler to all of the cells
 const setup = function() {
-    //register with server
-    
-    $(".cell").click(onclick);
-
-    for (var i = 0; i < 8; i++) {
+    //collect cell references
+    for (let i = 0; i < 8; i++) {
         cells[i] = $(NUMBERS[i])
     }
 
+    //register with server
+    setupSocket();
+    
+    //install onclick handlers
+    $(".cell").click(onclick);
+
+    //setup instrument
     Synth.setVolume(0.20);
     piano = Synth.createInstrument('piano');
 
-    beatBar(750, 0);
+    //start beat
+    beatBar(DURATION, 0);
 };
 
 //runs the setup when the DOM is ready

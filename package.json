@@ -1,0 +1,12 @@
+{
+    "name": "sound-grid",
+    "version": "2.0.0",
+
+    "engines": {
+        "node": "^10.16.0"
+    },
+
+    "dependencies": {
+        "socket.io": "^2.2.0"
+    }
+}
