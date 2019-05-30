@@ -72,7 +72,7 @@ const setupSocket = function() {
     socket.on("deactivate", function(splitid) {
         deactivate(fetchCell(splitid));
     });
-    socket.on("startbeat", beatBar);
+    socket.on("startBeat", beatBar);
 };
 
 //assigns the onclick handler to all of the cells

@@ -47,18 +47,19 @@ const setup = function() {
         });
 
         //set true and broadcast on activation
-        socket.on("activation", function(cell) {
+        socket.on("activate", function(cell) {
             grid[cell[0]][cell[1]] = true;
-            socket.broadcast.emit("activation", cell);
-            console.log("activation");
+            socket.broadcast.emit("activate", cell);
+            console.log("activate");
         });
 
         //set false and broadcast on deactivation
-        socket.on("deactivation", function(cell) {
+        socket.on("deactivate", function(cell) {
             grid[cell[0]][cell[1]] = false;
-            socket.broadcast.emit("deactivation", cell);
-            console.log("deactivation");
+            socket.broadcast.emit("deactivate", cell);
+            console.log("deactivate");
         });
+        console.log("done")
     });
 
     startBeat(DURATION);
