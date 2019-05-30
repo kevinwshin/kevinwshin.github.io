@@ -59,7 +59,7 @@ const beatBar = function(duration=DURATION, beat=0) {
     //play sounds
     cells[beat].each(function(index) {
         if($(this).hasClass("active")) {
-            piano.play(NOTES[index][0], NOTES[index][1], duration / 1000);
+            piano.play(NOTES[index][0], NOTES[index][1], duration / 800);
         }
     });
 };
