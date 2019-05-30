@@ -3,10 +3,12 @@ const HEIGHT = 7;
 const DURATION = 6000;
 
 const http = require("http");
+let io;
+let server;
 let users = [];
 const grid = [];
 
-const startBeat = function(duration, io){
+const startBeat = function(duration){
     io.emit("startBeat");
     setTimeout(startBeat, duration);
 };
@@ -23,11 +25,11 @@ const setup = function() {
     }
 
     //starts the server, gets the port from heroku if possible
-    const server = http.createServer();
+    server = http.createServer();
     server.listen(process.env.PORT || 8080);
 
     //setup event handlers
-    const io = require("socket.io")(server);
+    io = require("socket.io")(server);
     io.on("connection", function(socket) {
         //register users and send state on connect
         users.push(socket);
@@ -56,6 +58,6 @@ const setup = function() {
         });
     });
 
-    startBeat(DURATION, io);
+    startBeat();
 };
 setup();
