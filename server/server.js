@@ -8,16 +8,10 @@ let server;
 let users = [];
 const grid = [];
 
-console.log("1");
-
 const startBeat = function(duration){
     io.emit("startBeat");
-
-    console.log("13");
     setTimeout(startBeat, duration, duration);
 };
-
-console.log("2");
 
 //starts the server, gets the port from heroku if possible
 // const server = http.createServer(function(request, response) {
@@ -30,23 +24,15 @@ const setup = function() {
         grid.push(Array(HEIGHT).fill(false));
     }
 
-    console.log("4");
-
     //starts the server, gets the port from heroku if possible
     server = http.createServer();
-
-    console.log("5");
-
     server.listen(process.env.PORT || 8080);
-
-    console.log("6");
 
     //setup event handlers
     io = require("socket.io")(server);
-
-    console.log("7");
-
     io.on("connection", function(socket) {
+        console.log("7");
+
         //register users and send state on connect
         users.push(socket);
         socket.emit("setup", grid);
@@ -79,16 +65,9 @@ const setup = function() {
             socket.broadcast.emit("deactivation", cell);
         });
 
-        console.log("12");
+        console.log("11");
     });
 
-    console.log("12");
-
     startBeat(DURATION);
-
-    console.log("14");
 };
-
-console.log("3");
-
 setup();
