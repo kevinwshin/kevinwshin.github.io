@@ -19,7 +19,7 @@ const splitID = function(cell) {
 
 //gets a cell based on its id
 const fetchCell = function(splitid) {
-    return $("#" + splitid[0] + "," + splitid[1]);
+    return $("#" + splitid[0] + "\\," + splitid[1]);
 };
 
 //toggles a cell on
