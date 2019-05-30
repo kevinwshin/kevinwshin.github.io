@@ -1,6 +1,6 @@
-const WIDTH = 8;
-const HEIGHT = 7;
-const DURATION = 6000;
+const WIDTH = 12;
+const HEIGHT = 11;
+const DURATION = WIDTH * 60 * 1000 / 80; //80BPM
 
 const http = require("http");
 let io;
