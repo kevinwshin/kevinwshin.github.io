@@ -1,0 +1,24 @@
+.grid {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-gap: 10px;
+}
+
+.one, .three, .five, .seven {
+    background: green;
+}
+
+.two, .four, .six, .eight {
+    background: blue;
+}
+
+.E4 {
+    background: red;
+}
