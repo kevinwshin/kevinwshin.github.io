@@ -11,12 +11,8 @@ const grid = [];
 const startBeat = function(duration){
     io.emit("startBeat");
     setTimeout(startBeat, duration, duration);
+    console.log("beat");
 };
-
-//starts the server, gets the port from heroku if possible
-// const server = http.createServer(function(request, response) {
-//     //todo?
-// });
 
 const setup = function() {
     //initializes the grid to be all false
@@ -26,7 +22,6 @@ const setup = function() {
 
     //starts the server, gets the port from heroku if possible
     server = http.createServer(function(request, response) {
-        console.log("request");
         response.end("");
     });
     server.listen(process.env.PORT || 8080);
@@ -34,13 +29,11 @@ const setup = function() {
     //setup event handlers
     io = require("socket.io")(server);
     io.on("connection", function(socket) {
-        console.log("7");
+        console.log("connect");
 
         //register users and send state on connect
         users.push(socket);
         socket.emit("setup", grid);
-
-        console.log("8");
 
         //deregister users on disconnect
         socket.on("disconnect", function() {
@@ -50,25 +43,22 @@ const setup = function() {
             } else {
                 users = users.splice(index, 1);
             }
+            console.log("disconnect");
         });
-
-        console.log("9");
 
         //set true and broadcast on activation
         socket.on("activation", function(cell) {
             grid[cell[0]][cell[1]] = true;
             socket.broadcast.emit("activation", cell);
+            console.log("activation");
         });
-
-        console.log("10");
 
         //set false and broadcast on deactivation
         socket.on("deactivation", function(cell) {
             grid[cell[0]][cell[1]] = false;
             socket.broadcast.emit("deactivation", cell);
+            console.log("deactivation");
         });
-
-        console.log("11");
     });
 
     startBeat(DURATION);
