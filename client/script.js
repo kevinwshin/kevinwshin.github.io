@@ -65,7 +65,7 @@ const beatBar = function(duration, beat) {
 
 //register with server
 const setupSocket = function() {
-    socket = io();
+    socket = io("https://soundgrid2.herokuapp.com/");
     socket.on("activate", function(splitid) {
         activate(fetchCell(splitid));
     });
