@@ -1,7 +1,7 @@
 const WIDTH = 12;
 const HEIGHT = 11;
 const DURATION = 60 * 1000 / 80; //80 BPM
-const NOTES = [["C", 5], ["A", 5], ["G", 4], ["E", 4], ["D", 4], ["C", 4], ["A", 4], ["G", 3], ["E", 3], ["D", 3], ["C", 3]];
+const NOTES = [["C", 5], ["A", 4], ["G", 4], ["E", 4], ["D", 4], ["C", 4], ["A", 3], ["G", 3], ["E", 3], ["D", 3], ["C", 3]];
 let piano;
 const cells = [];
 let socket;
